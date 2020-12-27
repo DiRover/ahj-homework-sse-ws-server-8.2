@@ -1,0 +1,32 @@
+{
+  "name": "test_8_sse_ws_server",
+  "version": "1.0.0",
+  "description": "sse ws server",
+  "main": "server.js",
+  "scripts": {
+    "prestart": "npm install",
+    "serve": "nodemon server.ws.complete.js",
+    "ws": "nodemon -w ./ server.ws.complete.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiRover/ahj-homework-sse-ws-server-8.git"
+  },
+  "author": "Dmitriy Rovenskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DiRover/ahj-homework-sse-ws-server-8/issues"
+  },
+  "homepage": "https://github.com/DiRover/ahj-homework-sse-ws-server-8#readme",
+  "dependencies": {
+    "forever": "^3.0.4",
+    "http-event-stream": "^0.2.0",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "nodemon": "^2.0.6",
+    "uuid": "^8.3.1",
+    "ws": "^7.3.1"
+  }
+}
