@@ -2,7 +2,7 @@ const http = require('http');
 const Koa = require('koa');
 const Router = require('koa-router');
 const WS = require('ws');
-
+const users = [];
 const app = new Koa();
 
 app.use(async (ctx, next) => {
@@ -51,11 +51,22 @@ const wsServer = new WS.Server({ server });
 
 wsServer.on('connection', (ws, req) => {
   ws.on('message', msg => {
-    console.log(msg);
-    ws.send('response');
+    console.log(new Date());
+    console.log(msg)
+    users.forEach((user) => {
+      console.log(users);
+      if (user === msg) {
+          ws.send('User with the same has already exist')
+      } else {
+        users.push(msg)
+      }
+    })
+    
+    //ws.send('response: ' + wsServer.clients.size + ' has ' + wsServer.clients.has(msg) + ' entries ' + wsServer.clients.entries());
+    
     /*[...wsServer.clients]
-    .filter(o => o.readyState === WS.OPEN)
-    .forEach(o => o.send('some message'));*/
+    .filter(channel => channel.readyState === WS.OPEN)
+    .forEach(channel => channel.send('some message'));*/
   });
 
   ws.send('welcome');
