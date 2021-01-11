@@ -52,21 +52,43 @@ const wsServer = new WS.Server({ server });
 wsServer.on('connection', (ws, req) => {
   ws.on('message', msg => {
     console.log(new Date());
-    console.log(msg)
-    users.forEach((user) => {
-      console.log(users);
-      if (user === msg) {
-          ws.send('User with the same has already exist')
-      } else {
-        users.push(msg)
-      }
-    })
-    
+    console.log(msg);
+    console.log(users);
+    if (users.length === 0) {
+      users.push(msg);
+      ws.send(msg);
+    } else {
+      users.forEach((user) => {
+        if (user === msg) {
+          ws.send('User with the same has already exist');
+        } else {
+          users.push(msg);
+          ws.send('User was added');
+        }
+      })
+    }
+    /*if (users.length === 0) {
+      users.push(msg);
+      ws.send('new user added'); //сообщение отправляется 2 раза, не понимаю почему
+    } else {
+      users.forEach((user) => {
+        if (user === msg) {
+            ws.send('User with the same has already exist') //сообщение отправляется 2 раза, не понимаю почему
+        } else {
+          console.log('tut');
+          ws.send('new user added');
+          users.push(msg);
+          console.log(users);
+        }
+      })
+    }
     //ws.send('response: ' + wsServer.clients.size + ' has ' + wsServer.clients.has(msg) + ' entries ' + wsServer.clients.entries());
-    
-    /*[...wsServer.clients]
+    */
+   /*
+    [...wsServer.clients]
     .filter(channel => channel.readyState === WS.OPEN)
-    .forEach(channel => channel.send('some message'));*/
+    .forEach(channel => {channel.send('some message')});
+    */
   });
 
   ws.send('welcome');
