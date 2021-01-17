@@ -66,14 +66,31 @@ wsServer.on('connection', (ws, req) => {
       const response = JSON.stringify(msg);
       console.log('---new user---');
       console.log(response);
-      console.log('---new user---')
-      sendResponse(response)
-    }
-    if (request.type === 'get users') {
+      console.log('---new user---');
+
+      const nicknameValid = {type: 'nickname is valid', nickname: request.nickname};
+      const responseNickname = JSON.stringify(nicknameValid);
+      ws.send(responseNickname);
+
+      sendResponse(response);
+    } else if (request.type === 'get users') {
       const msg = { type: 'users list', users: [...users]}
       const response = JSON.stringify(msg);
       ws.send(response);
+    } else if (request.type === 'message') {
+      console.log(request.nickname);
+      const msg = {type: 'message', text: request.text, name: request.nickname };
+      const response = JSON.stringify(msg);
+      console.log('---message text---');
+      console.log(response);
+      console.log('---message text---')
+      sendResponse(response)
     }
+
+
+
+    
+
     /*
     [...wsServer.clients]
     .filter(channel => channel.readyState === WS.OPEN)
