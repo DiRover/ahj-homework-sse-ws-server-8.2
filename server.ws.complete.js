@@ -2,7 +2,9 @@ const http = require('http');
 const Koa = require('koa');
 const Router = require('koa-router');
 const WS = require('ws');
-const users = [];
+
+let users = new Set();
+let sockets = new Set();
 const app = new Koa();
 
 app.use(async (ctx, next) => {
@@ -50,25 +52,27 @@ const server = http.createServer(app.callback())
 const wsServer = new WS.Server({ server });
 
 wsServer.on('connection', (ws, req) => {
+  sockets.add(ws);
   ws.on('message', data => {
     const request = JSON.parse(data);
-    if (request.type === 'nickname') {
-      if (users.length === 0) {
-        users.push(request.nickname);
-        ws.send('User was added');
-      } else {
-        console.log('---users---');
-        console.log(users);
-        console.log('---users---');
-        users.forEach((user) => {
-          if (user === request.nickname) {
-            ws.send('User with the same has already exist');
-          } else {
-            users.push(request.nickname);
-            ws.send('User was added');
-          }
-        })
-      }
+    console.log(request);
+    if (request.type === 'add user' && users.has(request.nickname)) {
+      const msg = {type: 'error', text: 'User with the same has already exist'};
+      const response = JSON.stringify(msg);
+      ws.send(response);
+    } else if (request.type === 'add user') {
+      users.add(request.nickname);
+      const msg = {type: 'user added', users: [...users]};
+      const response = JSON.stringify(msg);
+      console.log('---new user---');
+      console.log(response);
+      console.log('---new user---')
+      sendResponse(response)
+    }
+    if (request.type === 'get users') {
+      const msg = { type: 'users list', users: [...users]}
+      const response = JSON.stringify(msg);
+      ws.send(response);
     }
     /*
     [...wsServer.clients]
@@ -79,5 +83,11 @@ wsServer.on('connection', (ws, req) => {
 
   ws.send('welcome');
 });
+
+function sendResponse(response) {
+  [...wsServer.clients]
+    .filter(channel => channel.readyState === WS.OPEN)
+    .forEach(channel => {channel.send(response)});
+}
 
 server.listen(port);
