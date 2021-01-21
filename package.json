@@ -8,6 +8,9 @@
     "serve": "nodemon server.ws.complete.js",
     "ws": "nodemon -w ./ server.ws.complete.js"
   },
+  "engines":{
+    "node":"^15.2.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DiRover/ahj-homework-sse-ws-server-8.git"
