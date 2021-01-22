@@ -45,6 +45,10 @@ router.get('/index', async (ctx) => {
   ctx.response.body = 'hello';
 });
 
+router.get('/', async (ctx) => {
+  ctx.response.body = 'server is running...';
+});)
+
 app.use(router.routes()).use(router.allowedMethods());
 
 const port = process.env.PORT || 7070;
