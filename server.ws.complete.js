@@ -47,7 +47,7 @@ router.get('/index', async (ctx) => {
 
 router.get('/', async (ctx) => {
   ctx.response.body = 'server is running...';
-});)
+});
 
 app.use(router.routes()).use(router.allowedMethods());
 
@@ -105,6 +105,4 @@ function sendResponse(response) { //функция для отправки со�
     .forEach(channel => {channel.send(response)});
 }
 
-server.listen(port, () => {
-  console.log('Server is working');
-});
+server.listen(port);
