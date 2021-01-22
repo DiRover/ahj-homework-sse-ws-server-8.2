@@ -101,4 +101,6 @@ function sendResponse(response) { //функция для отправки со�
     .forEach(channel => {channel.send(response)});
 }
 
-server.listen(port);
+server.listen(port, () => {
+  console.log('Server is working');
+});
