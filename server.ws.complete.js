@@ -45,7 +45,7 @@ router.get('/index', async (ctx) => {
   ctx.response.body = 'hello';
 });
 
-router.get('/', async (ctx) => {
+router.get('', async (ctx) => {
   ctx.response.body = 'server is running...';
 });
 
