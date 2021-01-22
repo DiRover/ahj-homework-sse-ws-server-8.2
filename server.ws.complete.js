@@ -2,6 +2,13 @@ const http = require('http');
 const Koa = require('koa');
 const Router = require('koa-router');
 const WS = require('ws');
+const express = require('express');
+const appExp = express();
+
+appExp.listen(port);
+appExp.get('/', (req, res) => {
+  res.end('<h1>Server is working...<h1>');
+})
 
 let users = new Set();
 let sockets = new Set();
