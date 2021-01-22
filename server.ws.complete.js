@@ -6,7 +6,7 @@ const WS = require('ws');
 let users = new Set();
 let sockets = new Set();
 const app = new Koa();
-
+console.log('server is working');
 app.use(async (ctx, next) => {
   const origin = ctx.request.get('Origin');
   if (!origin) {
