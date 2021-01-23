@@ -10,6 +10,10 @@ appExp.get('/', (req, res) => {
   res.end('<h1>Server is working...<h1>');
 })
 
+app.use(async, (ctx, next) => {
+  ctx.body = 'Server is working...';
+})
+
 let users = new Set();
 let sockets = new Set();
 const app = new Koa();
