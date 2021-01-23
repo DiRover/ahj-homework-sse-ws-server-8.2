@@ -4,15 +4,15 @@ const Router = require('koa-router');
 const WS = require('ws');
 
 
-app.use(async (ctx, next) => {
-  ctx.body = 'server is working';
-});
-
 let users = new Set();
 let sockets = new Set();
 const app = new Koa();
 
 console.log('server is working');
+
+app.use(async (ctx, next) => {
+  ctx.body = 'server is working';
+});
 
 app.use(async (ctx, next) => {
   const origin = ctx.request.get('Origin');
