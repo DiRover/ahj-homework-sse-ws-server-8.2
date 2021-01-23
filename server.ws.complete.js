@@ -5,18 +5,14 @@ const WS = require('ws');
 
 
 app.use(async (ctx, next) => {
-  ctx.body = 'Server is working...';
-})
+  ctx.body = 'server is working';
+});
 
 let users = new Set();
 let sockets = new Set();
 const app = new Koa();
 
 console.log('server is working');
-
-app.get('/', async (ctx) => {
-  ctx.response.body = 'hello';
-});
 
 app.use(async (ctx, next) => {
   const origin = ctx.request.get('Origin');
@@ -54,10 +50,6 @@ const router = new Router();
 
 router.get('/index', async (ctx) => {
   ctx.response.body = 'hello';
-});
-
-router.get('', async (ctx) => {
-  ctx.response.body = 'server is running...';
 });
 
 app.use(router.routes()).use(router.allowedMethods());
