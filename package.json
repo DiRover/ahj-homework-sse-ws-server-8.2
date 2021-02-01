@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "prestart": "npm install",
-    "serve": "nodemon server.ws.complete.js",
-    "ws": "nodemon -w ./ server.ws.complete.js"
+    "serve": "nodemon server.js",
+    "ws": "nodemon -w ./ server.js"
   },
   "engines": {
     "node": "^15.2.1"
